@@ -1,0 +1,18 @@
+{-# STDLIB_VERSION 3 #-}
+{-# CONTENT_TYPE EXPRESSION #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+let lockToken = base58'9vhhUFLM9pW713dsEyAUPE5wGBi3iactNh9L9PtLB1rj'
+
+match tx {
+
+    case t: TransferTransaction =>
+    assetBalance(t.sender,lockToken) == 1000
+    || throw("this wallet freeze")
+
+    case m: MassTransferTransaction =>
+    assetBalance(m.sender,lockToken) == 1000
+    || throw("this wallet freeze")
+
+    case _ => false
+}

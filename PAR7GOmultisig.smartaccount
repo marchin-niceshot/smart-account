@@ -1,0 +1,14 @@
+{-# STDLIB_VERSION 2 #-}
+{-# CONTENT_TYPE EXPRESSION #-}
+{-# SCRIPT_TYPE ACCOUNT #-}
+
+#define public keys
+let PAR7GOmain  = base58'AqujqfzxkRSf9S66wMiM6jYWMEKy7GU34ToZmbzvFCqc'
+let WAPPmain  = base58'7RtHmLxuuc16eavD3f9jr9Gn6RXAa54bPEAZU7Tro5rc'
+
+#check whoever provided the valid proof
+let PAR7GOSigned  = if(sigVerify(tx.bodyBytes, tx.proofs[0], PAR7GOmain  )) then 1 else 0
+let WAPPSigned    = if(sigVerify(tx.bodyBytes, tx.proofs[1], WAPPmain  )) then 1 else 0
+
+#sum up every valid proof to get at least 2
+PAR7GOSigned + WAPPSigned  >= 1
